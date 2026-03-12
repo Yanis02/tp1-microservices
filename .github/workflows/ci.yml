@@ -52,3 +52,21 @@ jobs:
       run: |
         cd paiement-service
         mvn clean install
+
+    - name: Build Docker Image - Config Service
+      run: docker build -t config-service:latest ./config-service
+
+    - name: Build Docker Image - Discovery Service
+      run: docker build -t discovery-service:latest ./discovery-service
+
+    - name: Build Docker Image - Gateway Service
+      run: docker build -t gateway-service:latest ./gateway-service
+
+    - name: Build Docker Image - Catalogue Service
+      run: docker build -t catalogue-service:latest ./catalogue-service
+
+    - name: Build Docker Image - Commande Service
+      run: docker build -t commande-service:latest ./commande-service
+
+    - name: Build Docker Image - Paiement Service
+      run: docker build -t paiement-service:latest ./paiement-service
