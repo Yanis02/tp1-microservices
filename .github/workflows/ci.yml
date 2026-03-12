@@ -88,3 +88,26 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/paiement-service:latest ./paiement-service
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/paiement-service:latest
+
+    # 6 Setup Helm
+    - name: Setup Helm
+      uses: azure/setup-helm@v3
+
+    # 7 Deploy services with Helm
+    - name: Deploy Config Service
+      run: helm upgrade --install config-service ./charts/config-service
+
+    - name: Deploy Discovery Service
+      run: helm upgrade --install discovery-service ./charts/discovery-service
+
+    - name: Deploy Gateway Service
+      run: helm upgrade --install gateway-service ./charts/gateway-service
+
+    - name: Deploy Catalogue Service
+      run: helm upgrade --install catalogue-service ./charts/catalogue-service
+
+    - name: Deploy Commande Service
+      run: helm upgrade --install commande-service ./charts/commande-service
+
+    - name: Deploy Paiement Service
+      run: helm upgrade --install paiement-service ./charts/paiement-service
