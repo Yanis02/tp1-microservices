@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: "16-alpine"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5432
+
+containerPort: 5432
+
+database: mydb
+username: myuser
+password: mypass

@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: yanisdjouima756/commande-service
   tag: latest
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
@@ -15,12 +15,12 @@ env:
   - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
     value: "http://discovery-service:8761/eureka"
   - name: SPRING_DATASOURCE_URL
-    value: "jdbc:h2:mem:commandedb"
+    value: "jdbc:postgresql://postgres-commande:5432/commandedb"
   - name: SPRING_DATASOURCE_DRIVER
-    value: "org.h2.Driver"
+    value: "org.postgresql.Driver"
   - name: SPRING_DATASOURCE_USERNAME
-    value: "sa"
+    value: "commande_user"
   - name: SPRING_DATASOURCE_PASSWORD
-    value: ""
+    value: "commande_pass"
   - name: SPRING_JPA_PLATFORM
-    value: "org.hibernate.dialect.H2Dialect"
+    value: "org.hibernate.dialect.PostgreSQLDialect"
