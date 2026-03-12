@@ -53,20 +53,38 @@ jobs:
         cd paiement-service
         mvn clean install
 
-    - name: Build Docker Image - Config Service
-      run: docker build -t config-service:latest ./config-service
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build Docker Image - Discovery Service
-      run: docker build -t discovery-service:latest ./discovery-service
+    - name: Build & Push Docker Image - Config Service
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/config-service:latest ./config-service
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/config-service:latest
 
-    - name: Build Docker Image - Gateway Service
-      run: docker build -t gateway-service:latest ./gateway-service
+    - name: Build & Push Docker Image - Discovery Service
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service:latest ./discovery-service
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service:latest
 
-    - name: Build Docker Image - Catalogue Service
-      run: docker build -t catalogue-service:latest ./catalogue-service
+    - name: Build & Push Docker Image - Gateway Service
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/gateway-service:latest ./gateway-service
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/gateway-service:latest
 
-    - name: Build Docker Image - Commande Service
-      run: docker build -t commande-service:latest ./commande-service
+    - name: Build & Push Docker Image - Catalogue Service
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/catalogue-service:latest ./catalogue-service
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/catalogue-service:latest
 
-    - name: Build Docker Image - Paiement Service
-      run: docker build -t paiement-service:latest ./paiement-service
+    - name: Build & Push Docker Image - Commande Service
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/commande-service:latest ./commande-service
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/commande-service:latest
+
+    - name: Build & Push Docker Image - Paiement Service
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/paiement-service:latest ./paiement-service
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/paiement-service:latest
