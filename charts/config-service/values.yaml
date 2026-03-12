@@ -1,0 +1,12 @@
+replicaCount: 1
+
+image:
+  repository: yanisdjouima756/config-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8888
+
+containerPort: 8888

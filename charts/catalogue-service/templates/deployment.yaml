@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-catalogue-service
+  labels:
+    app: catalogue-service
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: catalogue-service
+  template:
+    metadata:
+      labels:
+        app: catalogue-service
+    spec:
+      containers:
+        - name: catalogue-service
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          env:
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: "{{ .value }}"
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.containerPort }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.containerPort }}
+            initialDelaySeconds: 60
+            periodSeconds: 15

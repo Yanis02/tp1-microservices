@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: commande-service
+  labels:
+    app: commande-service
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerPort }}
+      protocol: TCP
+  selector:
+    app: commande-service

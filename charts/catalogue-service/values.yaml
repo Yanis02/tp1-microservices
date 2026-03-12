@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: yanisdjouima756/catalogue-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8081
+
+containerPort: 8081
+
+env:
+  - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+    value: "http://discovery-service:8761/eureka"
+  - name: SPRING_DATASOURCE_URL
+    value: "jdbc:h2:mem:cataloguedb"
+  - name: SPRING_DATASOURCE_DRIVER
+    value: "org.h2.Driver"
+  - name: SPRING_DATASOURCE_USERNAME
+    value: "sa"
+  - name: SPRING_DATASOURCE_PASSWORD
+    value: ""
+  - name: SPRING_JPA_PLATFORM
+    value: "org.hibernate.dialect.H2Dialect"

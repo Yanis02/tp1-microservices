@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: yanisdjouima756/gateway-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+containerPort: 8080
+
+env:
+  - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+    value: "http://discovery-service:8761/eureka"
