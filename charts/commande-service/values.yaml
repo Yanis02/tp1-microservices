@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: yanisdjouima756/commande-service
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: ClusterIP
