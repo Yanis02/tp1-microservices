@@ -89,9 +89,12 @@ jobs:
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/paiement-service:latest ./paiement-service
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/paiement-service:latest
 
-    # 6 Setup Helm
+    # 6 Setup Helm & Kubernetes
     - name: Setup Helm
       uses: azure/setup-helm@v3
+
+    - name: Create K8s Kind Cluster
+      uses: helm/kind-action@v1
 
     # 7 Deploy services with Helm
     - name: Deploy Config Service
